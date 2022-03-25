@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for pizza in pizzas %}
+        <h1>{{ pizza.name }}</h1>
+        <div id="{{ pizza.id }}" class="checkbox">
+            {% for ingredient in pizza.ingredients %}
+                <div>
+                    <label class="ingredient-list">
+                        <span>{{ ingredient.title }}</span>
+                    </label>
+                </div>
+            {% endfor %}
+            <a href="{{ path('pizza', { 'id': pizza.id }) }}">Take</a>
+        </div>
+    {% endfor %}
+{% endblock %}

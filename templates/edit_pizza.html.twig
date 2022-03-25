@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        }
+
+        /*!* Modal Content/Box *!*/
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /*!* The Close Button *!*/
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /*.close:hover,*/
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ pizza.name }}</h1>
+    <div id="pizzaId" value="{{ pizza.id }}">
+        {% for ingredient in pizza.ingredients %}
+            <div>
+                <label>{{ ingredient.title }}</label>
+                <input id="{{ ingredient.id }}" name="ingredient-checkbox" type="checkbox"
+                       value="{{ ingredient.price }}" checked>
+                <label>Queue</label>
+                <input id="ingredientQueue-{{ ingredient.id }}" type="number" min="1"
+                       max="{{ pizza.ingredients|length }}"/>
+            </div>
+        {% endfor %}
+        <div>
+            <label>TotalPrice</label>
+            <p id="totalPrice">{{ pizza.totalPrice }}</p>
+        </div>
+        <button id="pizzaBay" onclick="createOrder()" data-url="{{ path('create_order') }}">Bay</button>
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1 id="orderNr"></h1>
+            <h1 id="orderPizzaName"></h1>
+            <div id="orderIngredients"></div>
+
+            <label>TotalPrice</label>
+            <p id="orderTotalPrice"></p>
+        </div>
+    </div>
+    {% block javascripts %}
+        <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/scripts.js') }}" type="text/javascript"></script>
+    {% endblock %}
+{% endblock %}

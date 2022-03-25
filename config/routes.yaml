@@ -1,0 +1,11 @@
+list:
+    path: /
+    controller: App\Controller\PizzaController::list
+
+pizza:
+    path: /pizza/{id}
+    controller: App\Controller\PizzaController::pizza
+
+create_order:
+    path: /createOrder
+    controller: App\Controller\OrderController::create
